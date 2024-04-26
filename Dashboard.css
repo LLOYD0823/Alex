@@ -1,0 +1,190 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    font-family: 'Poppins';
+}
+
+#top-navbar {
+    background-color: rgba(19, 78, 58, 1);
+    color: #fff;
+    padding: 10px; /* Padding for the navbar */
+}
+
+.icon1 ion-icon {   
+    font-size: 30px;
+    padding-right: 40px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+#top-nav-links {
+    display: flex;
+    justify-content: flex-end;
+}
+
+  #top-nav-links a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+#sidebar {
+    width: 300px;
+    background-color: #E2F0F1;
+    height: 88vh;
+    float: left;
+    position: relative;
+}
+
+#logo {
+    background-color: #639d77;
+    position: absolute;
+    padding-top: 8px;
+    padding-left: 40px;
+    padding-right: 40px;
+    width: 220px;
+    height: 90px;
+}
+
+#logo img {
+    width: 100%;
+}
+
+#nav {
+    margin-top: 30px;
+}
+
+#nav a {
+    display: block;
+    padding: 10px 20px; /* Adjust padding to create space between icon and text */
+    margin-bottom: 10px;
+    background-color: #19B3C8;
+    color: #fff;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    position: relative;
+    border-radius: 5px;
+    margin-left: 20px;
+    margin-right: 20px; /* Add equal margins to the left and right */
+    text-align: left; /* Align text to the left */
+}
+
+#nav a:hover {
+    background-color: #4B805D;
+}
+
+#nav a img {
+    width: 20px;
+    margin-right: 10px; /* Adjust the right margin of the icon */
+    vertical-align: middle; /* Align the icon vertically with the text */
+}
+
+#logout {
+    position: absolute;
+    bottom: 30px;
+    left: 20px;
+    right: 20px;
+}
+
+#logout button {
+    width: 100%;
+    padding: 10px;
+    background-color: #19B3C8;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-radius: 5px;
+    font-family: poppins;
+}
+
+#logout button:hover {
+    background-color: #4B805D;
+}
+
+.tophead{
+    position: absolute;
+    font-size: 25px;
+    font-weight: 600;
+    top: 110px;
+    left: 350px;
+}
+
+.box-container {
+    padding-top: 80px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.box {
+    height: 100px;
+    width: 190px;
+    border-radius: 5px;
+    box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+.box:hover {
+    transform: scale(1.08);
+}
+
+.box:nth-child(1),
+.box:nth-child(2),
+.box:nth-child(3),
+.box:nth-child(4) {
+    background-color: #ffffff;
+}
+
+.box img {
+    height: 50px;
+}
+
+.box .text {
+    color: black;
+}
+
+.textbox {
+    position: absolute;
+    left: 360px;
+    box-shadow:  0 0 10px rgba(0, 0, 0, 0.3);;
+    margin-top: 40px;
+    border-radius: 10px;
+    width: 1120px;
+    height: 350px;
+}
+
+.textbox {
+    width: 75%; /* Adjust the width as needed */
+    height: 500px; /* Adjust the height as needed */
+    background-color: #f0f0f0; /* Set background color */
+    margin: 50px auto; /* Center the box horizontally with some top margin */
+    padding: 20px; /* Add padding inside the box */
+    border-radius: 10px; /* Add rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a shadow effect */
+}
+/* Style for h2 with class 'topic' inside .box1 */
+.box-container .box .text .topic {
+    font-size: 18px; /* Adjust the font size as per your requirement */
+    color: #333; /* Color for the text */
+    margin-bottom: 15px; /* Spacing at the bottom of the heading */
+}
+
+/* Style for div with id 'uniqueIDs' */
+#uniqueIDs {
+    font-size: 18px; /* Adjust the font size as per your requirement */
+    color: #666; /* Color for the text */
+}
+#uniqueTypes{
+    font-size: 18px; /* Adjust the font size as per your requirement */
+    color: #666; /* Color for the text */
+}

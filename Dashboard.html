@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://kit.fontawesome.com/c33a19923e.js" crossorigin="anonymous"></script>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+<link rel="stylesheet" href="Dashboard.css">
+<title>Dashboard</title>  
+<script src="https://www.gstatic.com/firebasejs/9.6.6/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.6/firebase-database-compat.js"></script>
+<link rel="stylesheet" href="style.css">
+<script>
+  // Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyCeSy9qMibAAYCZg5cipJ8097qeh3vwF08",
+    authDomain: "testingapp-589a1.firebaseapp.com",
+    databaseURL: "https://testingapp-589a1-default-rtdb.firebaseio.com",
+    projectId: "testingapp-589a1",
+    storageBucket: "testingapp-589a1.appspot.com",
+    messagingSenderId: "920622301670",
+    appId: "1:920622301670:web:8937030299600fede51627",
+    measurementId: "G-ZJP7HRFH98"
+  };
+
+  // Initialize Firebase
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  } else {
+    firebase.app(); // if already initialized, use that one
+  }
+
+  // Reference to the database
+  var database = firebase.database();
+
+  // Function to count unique user IDs
+  function countUniqueUserIDs() {
+    // Reference to the "UserID" node in the database
+    var userIDRef = database.ref('UserID');
+
+    // Listen for changes in the data
+    userIDRef.on('value', function(snapshot) {
+      var uniqueIDs = snapshot.numChildren(); // Counting the number of children (unique user IDs)
+      document.getElementById('uniqueIDs').innerText = "Total unique user: " + uniqueIDs;
+    });
+  }
+
+ // Function to filter Accommodation Establishments
+function filterAccommodationEstablishments() {
+  // Reference to the "Establishment" node in the database
+  var establishmentRef = database.ref('Establishment');
+
+  // Initialize an empty array to store filtered results
+  var filteredEstablishments = [];
+
+  // Listen for changes in the data
+  establishmentRef.on('value', function(snapshot) {
+    // Loop through each data entry
+    snapshot.forEach(function(childSnapshot) {
+      var establishment = childSnapshot.val();
+      // Check if the type is "Accommodation Establishment"
+      if (establishment.type === "Accommodation Establishment") {
+        // If it is, add this entry to the filtered data
+        filteredEstablishments.push(establishment);
+      }
+    });
+
+    // Count and display the number of accommodation establishments
+    var numAccommodationEstablishments = filteredEstablishments.length;
+    document.getElementById('numAccommodationEstablishments').innerText = "Total accommodation establishments: " + numAccommodationEstablishments;
+
+    // Display filtered establishments
+    displayFilteredEstablishments(filteredEstablishments);
+  });
+}
+
+// Function to filter Accommodation Establishments
+function filterAccommodationEstablishments() {
+  // Reference to the "Establishment" node in the database
+  var establishmentRef = database.ref('Establishment');
+
+  // Initialize an empty array to store filtered results
+  var filteredEstablishments = [];
+
+  // Listen for changes in the data
+  establishmentRef.on('value', function(snapshot) {
+    // Loop through each data entry
+    snapshot.forEach(function(childSnapshot) {
+      var establishment = childSnapshot.val();
+      // Check if the type is "Accommodation Establishment"
+      if (establishment.type === "Accommodation Establishment") {
+        // If it is, add this entry to the filtered data
+        filteredEstablishments.push({ EstablishmentID: childSnapshot.key, ...establishment });
+      }
+    });
+
+    // Count and display the number of accommodation establishments
+    var numAccommodationEstablishments = filteredEstablishments.length;
+    document.getElementById('numAccommodationEstablishments').innerText = "Total accommodation establishments: " + numAccommodationEstablishments;
+
+    // Display filtered establishments
+    displayFilteredEstablishments(filteredEstablishments);
+  });
+}
+
+// Function to display filtered establishments
+function displayFilteredEstablishments(filteredEstablishments) {
+  var establishmentsDiv = document.getElementById('filteredEstablishments');
+  establishmentsDiv.innerHTML = ''; // Clear previous results
+
+  // Loop through filtered establishments and create HTML elements to display them
+  filteredEstablishments.forEach(function(establishment) {
+    var establishmentDiv = document.createElement('div');
+    establishmentDiv.textContent = "EstablishmentID: " + establishment.EstablishmentID + ", Name: " + establishment.name + ", Location: " + establishment.location;
+    establishmentsDiv.appendChild(establishmentDiv);
+  });
+}
+
+// Call the function to count unique user IDs when the page loads
+window.onload = function() {
+  countUniqueUserIDs();
+};
+</script>
+</head> 
+<body>
+
+  <div id="logo">
+    <img src="assets/icons/gtmis-logo.png.png" alt="GT-MIS Logo">
+  </div>
+
+    <div id="top-navbar">
+        <div id="top-nav-links">
+          <a href="#"><div class="icon1"><ion-icon name="search-outline"></ion-icon></div></a>
+          <a href="#"><div class="icon1"><ion-icon name="notifications"></ion-icon></div></a>
+          <a href="#"><div class="icon1"><ion-icon name="mail"></ion-icon></div></a>
+        </div>
+      </div>
+
+      <div id="sidebar">
+
+        <div id="nav">
+          <a href="Dashboard.html"><img src="assets/icons/dashboard.png" alt="Dashboard Icon"> Dashboard</a>
+          <a href="Spending Analysis.html"><img src="assets/icons/analysis.png" alt="Spending Analysis Icon"> Spending Analysis</a>
+          <a href="Report Generation.html"><img src="assets/icons/report.png" alt="Report Generation Icon"> Report Generation</a>
+          <a href="#"><img src="assets/icons/setting.png" alt="Setting Icon"> Setting</a>
+        </div>
+        <div id="logout">
+          <!-- Changed the button to an anchor tag with an href to Log in.html -->
+          <a href="Log in.html"><button>Logout</button></a>
+        </div>
+      </div>
+
+      <div class="tophead">Dashboard</div>
+
+      <div class="box-container"> 
+        <div class="box box1"> 
+            <div class="text"> 
+                <h2 class="topic-heading"></h2> 
+                <h2 class="topic">Total Users </h2>
+                <div id="uniqueIDs">Loading...</div> 
+
+            </div>
+            <i class="fa-solid fa-person" style="color: rgba(19, 78, 58, 1); font-size:20px"></i> 
+        </div> 
+        <div class="box box2"> 
+            <div class="text"> 
+                <h2 class="topic-heading"></h2> 
+                <h2 class="topic">VISITOR ARRIVALS (DAILY)</h2> 
+            </div> 
+            <i class="fa-solid fa-calendar" style="color: rgba(19, 78, 58, 1); font-size:20px"></i>
+        </div> 
+    
+        <div class="box box3"> 
+            <div class="text"> 
+                <h2 class="topic-heading"></h2> 
+                <h2 class="topic">GUEST NIGHTS</h2> 
+            </div> 
+            <i class="fa-solid fa-hotel" style="color: rgba(19, 78, 58, 1); font-size:20px"></i>
+        </div>
+    
+        <div class="box box4"> 
+            <div class="text"> 
+                <h2 class="topic-heading"></h2> 
+                <h2 class="topic">Available AE</h2> 
+                <div id="numAccommodationEstablishment">Loading...</div> 
+                <div id="filteredEstablishments"></div>
+            </div> 
+            <i class="fa-solid fa-door-open" style="color: rgba(19, 78, 58, 1); font-size:20px"></i>
+        </div> 
+    </div>
+    
+    <div class="textbox">
+       Seasonal spending trends for each type of tourism - related business
+    </div>
+    
+    <div id="data-container"></div>
+
+    <script src="Dashboard.js"></script>
+</body>
+</html>
