@@ -12,117 +12,7 @@
 <script src="https://www.gstatic.com/firebasejs/9.6.6/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.6/firebase-database-compat.js"></script>
 <link rel="stylesheet" href="style.css">
-<script>
-  // Firebase configuration
-  var firebaseConfig = {
-    apiKey: "AIzaSyCeSy9qMibAAYCZg5cipJ8097qeh3vwF08",
-    authDomain: "testingapp-589a1.firebaseapp.com",
-    databaseURL: "https://testingapp-589a1-default-rtdb.firebaseio.com",
-    projectId: "testingapp-589a1",
-    storageBucket: "testingapp-589a1.appspot.com",
-    messagingSenderId: "920622301670",
-    appId: "1:920622301670:web:8937030299600fede51627",
-    measurementId: "G-ZJP7HRFH98"
-  };
 
-  // Initialize Firebase
-  if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-  } else {
-    firebase.app(); // if already initialized, use that one
-  }
-
-  // Reference to the database
-  var database = firebase.database();
-
-  // Function to count unique user IDs
-  function countUniqueUserIDs() {
-    // Reference to the "UserID" node in the database
-    var userIDRef = database.ref('UserID');
-
-    // Listen for changes in the data
-    userIDRef.on('value', function(snapshot) {
-      var uniqueIDs = snapshot.numChildren(); // Counting the number of children (unique user IDs)
-      document.getElementById('uniqueIDs').innerText = "Total unique user: " + uniqueIDs;
-    });
-  }
-
- // Function to filter Accommodation Establishments
-function filterAccommodationEstablishments() {
-  // Reference to the "Establishment" node in the database
-  var establishmentRef = database.ref('Establishment');
-
-  // Initialize an empty array to store filtered results
-  var filteredEstablishments = [];
-
-  // Listen for changes in the data
-  establishmentRef.on('value', function(snapshot) {
-    // Loop through each data entry
-    snapshot.forEach(function(childSnapshot) {
-      var establishment = childSnapshot.val();
-      // Check if the type is "Accommodation Establishment"
-      if (establishment.type === "Accommodation Establishment") {
-        // If it is, add this entry to the filtered data
-        filteredEstablishments.push(establishment);
-      }
-    });
-
-    // Count and display the number of accommodation establishments
-    var numAccommodationEstablishments = filteredEstablishments.length;
-    document.getElementById('numAccommodationEstablishments').innerText = "Total accommodation establishments: " + numAccommodationEstablishments;
-
-    // Display filtered establishments
-    displayFilteredEstablishments(filteredEstablishments);
-  });
-}
-
-// Function to filter Accommodation Establishments
-function filterAccommodationEstablishments() {
-  // Reference to the "Establishment" node in the database
-  var establishmentRef = database.ref('Establishment');
-
-  // Initialize an empty array to store filtered results
-  var filteredEstablishments = [];
-
-  // Listen for changes in the data
-  establishmentRef.on('value', function(snapshot) {
-    // Loop through each data entry
-    snapshot.forEach(function(childSnapshot) {
-      var establishment = childSnapshot.val();
-      // Check if the type is "Accommodation Establishment"
-      if (establishment.type === "Accommodation Establishment") {
-        // If it is, add this entry to the filtered data
-        filteredEstablishments.push({ EstablishmentID: childSnapshot.key, ...establishment });
-      }
-    });
-
-    // Count and display the number of accommodation establishments
-    var numAccommodationEstablishments = filteredEstablishments.length;
-    document.getElementById('numAccommodationEstablishments').innerText = "Total accommodation establishments: " + numAccommodationEstablishments;
-
-    // Display filtered establishments
-    displayFilteredEstablishments(filteredEstablishments);
-  });
-}
-
-// Function to display filtered establishments
-function displayFilteredEstablishments(filteredEstablishments) {
-  var establishmentsDiv = document.getElementById('filteredEstablishments');
-  establishmentsDiv.innerHTML = ''; // Clear previous results
-
-  // Loop through filtered establishments and create HTML elements to display them
-  filteredEstablishments.forEach(function(establishment) {
-    var establishmentDiv = document.createElement('div');
-    establishmentDiv.textContent = "EstablishmentID: " + establishment.EstablishmentID + ", Name: " + establishment.name + ", Location: " + establishment.location;
-    establishmentsDiv.appendChild(establishmentDiv);
-  });
-}
-
-// Call the function to count unique user IDs when the page loads
-window.onload = function() {
-  countUniqueUserIDs();
-};
-</script>
 </head> 
 <body>
 
@@ -155,11 +45,12 @@ window.onload = function() {
       <div class="tophead">Dashboard</div>
 
       <div class="box-container"> 
+
         <div class="box box1"> 
             <div class="text"> 
                 <h2 class="topic-heading"></h2> 
-                <h2 class="topic">Total Users </h2>
-                <div id="uniqueIDs">Loading...</div> 
+                <h2 class="topic">Total Users</h2>
+                <div id="uniqueIDs"> </div> 
 
             </div>
             <i class="fa-solid fa-person" style="color: rgba(19, 78, 58, 1); font-size:20px"></i> 
@@ -184,8 +75,7 @@ window.onload = function() {
             <div class="text"> 
                 <h2 class="topic-heading"></h2> 
                 <h2 class="topic">Available AE</h2> 
-                <div id="numAccommodationEstablishment">Loading...</div> 
-                <div id="filteredEstablishments"></div>
+                <div id="establishmentTypeCounts"> </div> 
             </div> 
             <i class="fa-solid fa-door-open" style="color: rgba(19, 78, 58, 1); font-size:20px"></i>
         </div> 
